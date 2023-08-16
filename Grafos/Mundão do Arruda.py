@@ -7,18 +7,27 @@ def ler_caminhos(pontos):
 
     return conexoes
 
+class Grafo:
+    def __init__(self):
+        self.nos = {}
+
+    def set_aresta(self, num, nome):
+        if num not in self.nos:
+            self.nos[num] = []
+        self.nos[num].append(nome)
+
 
 class BSF:
-    def __init__(self, pontos, conexoes):
-        self.pontos = pontos
+    def __init__(self, no, conexoes):
+        self.no = no
         self.conexoes = conexoes
         self.grafo = Grafo()
 
         for i, conexos in enumerate(conexoes):
             for c in conexos:
-                self.grafo.adicionar_aresta(i, c)
+                self.grafo.set_aresta(i, c)
 
-    def encontrar_melhor_caminho(self, inicio, fim):
+    def get_caminho(self, inicio, fim):
         visitados = []
         fila = [(inicio, [])]
 
@@ -37,15 +46,6 @@ class BSF:
         return []
 
 
-class Grafo:
-    def __init__(self):
-        self.nos = {}
-
-    def adicionar_aresta(self, num, nome):
-        if num not in self.nos:
-            self.nos[num] = []
-        self.nos[num].append(nome)
-
 
 lugares = input().split()
 origem = lugares[0]
@@ -57,10 +57,10 @@ navegador = BSF(lugares, caminhos)
 indice_inicio = lugares.index(origem)
 indice_fim = lugares.index(destino)
 
-melhor_rota = navegador.encontrar_melhor_caminho(indice_inicio, indice_fim)
+rota = navegador.get_caminho(indice_inicio, indice_fim)
 
-if melhor_rota:
-    print(f"Grafite precisou que passar por {len(melhor_rota)} locais ao longo do trajeto",
-          " -> ".join([lugares[no] for no in melhor_rota]) + ".")
+if rota:
+    print(f"Grafite precisou que passar por {len(rota)} locais ao longo do trajeto",
+          " -> ".join([lugares[no] for no in rota]) + ".")
 else:
     print("Infelizmente Grafite não pode chegar no Arruda.")

@@ -4,7 +4,7 @@ class Rede:
         self.conexoes = conexoes
 
     def get_conexoes(self, num_pessoa):
-        dados_usuario = None
+        dados_usuario = {}
 
         for usuario in self.usuarios:
             if usuario["id"] == num_pessoa:
